@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<!-- A linha acima avisa ao navegador que este arquivo usa HTML5, a versão atual do HTML. -->
+
+<!--
+    ============================================================
+    index.html | PÁGINA INICIAL DO PORTAL DE HOGWARTS
+    ============================================================
+    É o primeiro arquivo que o navegador abre, por isso ele fica na
+    raiz do projeto (fora da pasta pages/).
+
+    A página é dividida em 4 partes:
+    1. head   : configurações da página (título, fontes e CSS)
+    2. header : cabeçalho com o logo e o menu
+    3. main   : conteúdo principal (banner, cards e casas)
+    4. footer : rodapé
+-->
+
+<!-- lang="pt-BR" informa que o texto está em português do Brasil
+     (ajuda o tradutor do navegador e os leitores de tela) -->
+<html lang="pt-BR">
+
+<!-- ==================== HEAD ====================
+     Aqui ficam as configurações da página.
+     Nada que está no head aparece no corpo do site. -->
+<head>
+    <!-- UTF-8 permite usar acentos e ç sem aparecer símbolos estranhos -->
+    <meta charset="UTF-8">
+
+    <!-- viewport: faz o site se ajustar à largura da tela do celular.
+         Sem essa linha o site aparece minúsculo no celular. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Texto que aparece na aba do navegador -->
+    <title>Portal de Hogwarts | Início</title>
+
+    <!-- Fontes do Google Fonts:
+         Cinzel       = fonte dos títulos (lembra letras gravadas em pedra)
+         Crimson Text = fonte dos textos (lembra livros antigos)
+         A linha do "preconnect" só adianta a conexão com o site das fontes,
+         para elas carregarem mais rápido. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Liga o arquivo CSS externo.
+         Como o index.html está na raiz, o caminho é direto: css/style.css -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Liga o arquivo JavaScript externo (abre e fecha o menu no celular).
+         defer = só executa o JavaScript depois que todo o HTML carregar,
+         assim o querySelector já encontra os elementos da página. -->
+    <script src="js/script.js" defer></script>
+</head>
+
+<!-- ==================== BODY ====================
+     Tudo que fica dentro do body aparece na tela. -->
+<body>
+
+    <!-- ==================== CABEÇALHO ====================
+         Ele se repete igual em todas as páginas do site. -->
+    <header class="cabecalho">
+
+        <!-- "container" centraliza o conteúdo e limita a largura em telas grandes.
+             "cabecalho-conteudo" usa flexbox para organizar o logo e o menu. -->
+        <div class="container cabecalho-conteudo">
+
+            <!-- Logo: brasão + nome. É um link que sempre volta para a página inicial. -->
+            <a href="index.html" class="logo">
+                <img src="img/brasao-hogwarts.svg" alt="Brasão de Hogwarts">
+                Hogwarts
+            </a>
+
+            <!-- Botão do menu: só aparece no celular (o CSS esconde em telas maiores).
+                 type="button" = botão comum, que não envia formulário.
+                 O js/script.js abre e fecha o menu quando ele é clicado. -->
+            <button type="button" id="btn-menu" class="botao-menu">☰ Menu</button>
+
+            <!-- nav = área de navegação do site.
+                 Dentro dela há uma lista (ul), e cada item (li) tem um link (a).
+                 O id="menu" é usado pelo JavaScript para achar a lista. -->
+            <nav class="navegacao">
+                <ul id="menu" class="menu">
+                    <!-- A classe "ativo" deixa em dourado o link da página em que estamos -->
+                    <li><a href="index.html" class="ativo">Início</a></li>
+
+                    <!-- Caminho relativo: entra na pasta pages/ para achar as outras páginas.
+                         O cadastro é .php porque busca os dados no banco de dados. -->
+                    <li><a href="pages/cadastro.php">Cadastro</a></li>
+                    <li><a href="pages/chapeu-seletor.html">Chapéu Seletor</a></li>
+                    <li><a href="pages/saloes.html">Salões Comunais</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ==================== CONTEÚDO PRINCIPAL ==================== -->
+    <main>
+
+        <!-- ===== BANNER =====
+             A imagem do castelo (img/castelo.svg) não está aqui no HTML:
+             ela é colocada pelo CSS, na classe .banner, que também
+             escurece as beiradas para a imagem ficar esfumada. -->
+        <section class="banner">
+
+            <!-- Caixa escura semitransparente por cima da imagem,
+                 para o texto continuar fácil de ler -->
+            <div class="banner-texto">
+
+                <!-- Texto pequeno em letras maiúsculas acima do título -->
+                <p class="subtitulo">Escola de Magia e Bruxaria</p>
+
+                <!-- h1 = título mais importante da página (deve ter só um por página) -->
+                <h1>Bem-vindo a Hogwarts</h1>
+
+                <!-- p = parágrafo -->
+                <p>Faça sua matrícula, descubra sua casa com o Chapéu Seletor e conheça os salões comunais do castelo.</p>
+
+                <!-- Link com aparência de botão (o visual vem da classe "botao" no CSS) -->
+                <a href="pages/cadastro.php" class="botao">Fazer matrícula</a>
+            </div>
+        </section>
+
+        <!-- ===== ÁREAS DO SITE =====
+             "secao" dá espaço em cima e embaixo; "container" centraliza. -->
+        <section class="secao container">
+            <p class="subtitulo">Por onde começar</p>
+
+            <!-- h2 = título de uma seção (vem abaixo do h1 na importância) -->
+            <h2 class="titulo-secao">Explore o castelo</h2>
+
+            <!-- A div "cards" agrupa os três cards. No CSS ela usa flexbox:
+                 no celular os cards ficam um embaixo do outro;
+                 a partir de 768px (tablet) eles ficam lado a lado. -->
+            <div class="cards">
+
+                <!-- CARD 1: leva para o cadastro.
+                     article = um bloco de conteúdo que faz sentido sozinho (aqui, um card). -->
+                <article class="card">
+                    <!-- src = caminho da imagem
+                         alt = texto que aparece se a imagem não carregar
+                               (e que o leitor de tela lê para pessoas cegas) -->
+                    <img src="img/card-cadastro.svg" alt="Carta de admissão de Hogwarts">
+
+                    <!-- Parte de texto do card, com espaço interno (padding no CSS) -->
+                    <div class="card-texto">
+                        <!-- h3 = subtítulo, dentro da seção do h2 -->
+                        <h3>Registro de Bruxos</h3>
+                        <p>Todo aluno precisa estar no livro de matrículas. Cadastre seus dados, edite ou remova quando quiser.</p>
+                        <a href="pages/cadastro.php" class="botao">Entrar</a>
+                    </div>
+                </article>
+
+                <!-- CARD 2: leva para o teste do Chapéu Seletor -->
+                <article class="card">
+                    <img src="img/card-chapeu.svg" alt="Chapéu Seletor no Salão Principal">
+                    <div class="card-texto">
+                        <h3>Chapéu Seletor</h3>
+                        <p>Responda às perguntas do Chapéu e descubra se você pertence à Grifinória, Sonserina, Corvinal ou Lufa-Lufa.</p>
+                        <a href="pages/chapeu-seletor.html" class="botao">Fazer o teste</a>
+                    </div>
+                </article>
+
+                <!-- CARD 3: leva para os Salões Comunais -->
+                <article class="card">
+                    <img src="img/salao-grifinoria.jpg" alt="Salão comunal da Grifinória">
+                    <div class="card-texto">
+                        <h3>Salões Comunais</h3>
+                        <p>Conheça o lugar onde cada casa descansa depois das aulas e descubra onde ele fica no castelo.</p>
+                        <a href="pages/saloes.html" class="botao">Visitar</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- ===== AS QUATRO CASAS ===== -->
+        <section class="secao container">
+            <p class="subtitulo">Grifinória, Sonserina, Corvinal e Lufa-Lufa</p>
+            <h2 class="titulo-secao">As quatro casas</h2>
+
+            <!-- Cada brasão é um link para a página de salões.
+                 O "#grifinoria" no fim do endereço faz a página abrir já rolada
+                 até o elemento que tem id="grifinoria" dentro do saloes.html. -->
+            <div class="casas">
+
+                <!-- Este link tem duas classes:
+                     "casa-mini"       = formato da caixinha
+                     "casa-grifinoria" = troca a cor da borda e do nome para as cores da casa -->
+                <a href="pages/saloes.html#grifinoria" class="casa-mini casa-grifinoria">
+                    <img src="img/brasao-grifinoria.png" alt="Brasão da Grifinória">
+                    <!-- span = elemento de texto sem significado próprio,
+                         usado aqui só para podermos estilizar o nome no CSS -->
+                    <span>Grifinória</span>
+                </a>
+
+                <a href="pages/saloes.html#sonserina" class="casa-mini casa-sonserina">
+                    <!-- provisório: troque por brasao-sonserina.png quando tiver a imagem -->
+                    <img src="img/brasao-sonserina.svg" alt="Brasão da Sonserina">
+                    <span>Sonserina</span>
+                </a>
+
+                <a href="pages/saloes.html#corvinal" class="casa-mini casa-corvinal">
+                    <img src="img/brasao-corvinal.png" alt="Brasão da Corvinal">
+                    <span>Corvinal</span>
+                </a>
+
+                <a href="pages/saloes.html#lufa-lufa" class="casa-mini casa-lufa-lufa">
+                    <img src="img/brasao-lufa-lufa.png" alt="Brasão da Lufa-Lufa">
+                    <span>Lufa-Lufa</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== RODAPÉ ====================
+         Também se repete igual em todas as páginas. -->
+    <footer class="rodape">
+        <p>Portal de Hogwarts — Projeto de DWS | UNASP-HT 2026</p>
+        <!-- Aviso de direitos autorais: o site é de fã e os nomes pertencem à Warner Bros. -->
+        <p>Harry Potter e os nomes relacionados são marcas da Warner Bros. Site de fã, sem fins lucrativos.</p>
+    </footer>
+
+</body>
+</html>

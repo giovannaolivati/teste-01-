@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 190" width="160" height="190" role="img" aria-label="Brasao da Sonserina (provisorio)">
+    <!-- ATENCAO: este brasao e provisorio, desenhado so para o lugar nao ficar vazio.
+         Quando tiver a imagem do brasao da Sonserina, salve como brasao-sonserina.png
+         e troque o src nas paginas index.html e pages/chapeu-seletor.html. -->
+    <path d="M12 12 H148 V104 C148 144 118 166 80 180 C42 166 12 144 12 104 Z"
+          fill="#12291b" stroke="#22693a" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M80 14 V178" stroke="#8cc79b" stroke-width="2" opacity="0.25"/>
+    <path d="M14 86 H146" stroke="#8cc79b" stroke-width="2" opacity="0.25"/>
+
+    <!-- serpente simples -->
+    <path d="M52 128 C 44 112, 60 104, 76 110 C 92 116, 106 110, 104 96
+             C 102 82, 86 78, 74 84"
+          fill="none" stroke="#8cc79b" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="70" cy="86" r="6" fill="#8cc79b"/>
+    <circle cx="68" cy="84" r="2" fill="#12291b"/>
+    <path d="M52 128 C 48 134, 56 138, 62 134" fill="none" stroke="#8cc79b" stroke-width="5" stroke-linecap="round"/>
+
+    <text x="80" y="162" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+          font-size="19" font-weight="bold" fill="#8cc79b">SONSERINA</text>
+</svg>

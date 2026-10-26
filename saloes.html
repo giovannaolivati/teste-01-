@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!--
+    ============================================================
+    saloes.html | SALÕES COMUNAIS DAS QUATRO CASAS
+    ============================================================
+    Mostra o salão comunal de cada casa: imagem, onde fica no
+    castelo, como entrar e como é a decoração.
+
+    - A imagem de fundo temática da página vem do CSS (.pagina-saloes).
+    - Cada salão é uma section com um id (grifinoria, sonserina...),
+      para os links com # levarem direto até ele.
+    ============================================================
+-->
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Hogwarts | Salões Comunais</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Só o script do menu do celular -->
+    <script src="../js/script.js" defer></script>
+</head>
+
+<!-- A classe "pagina-saloes" no body coloca a imagem de fundo temática só nesta página -->
+<body class="pagina-saloes">
+
+    <!-- ==================== CABEÇALHO ==================== -->
+    <header class="cabecalho">
+        <div class="container cabecalho-conteudo">
+            <a href="../index.html" class="logo">
+                <img src="../img/brasao-hogwarts.svg" alt="Brasão de Hogwarts">
+                Hogwarts
+            </a>
+
+            <button type="button" id="btn-menu" class="botao-menu">☰ Menu</button>
+
+            <nav class="navegacao">
+                <ul id="menu" class="menu">
+                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="cadastro.php">Cadastro</a></li>
+                    <li><a href="chapeu-seletor.html">Chapéu Seletor</a></li>
+                    <li><a href="saloes.html" class="ativo">Salões Comunais</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- ==================== INTRODUÇÃO ==================== -->
+        <section class="secao">
+            <p class="subtitulo">Dentro do castelo</p>
+            <h1 class="titulo-pagina">Salões Comunais</h1>
+            <p class="descricao-pagina">Cada casa tem o seu salão comunal: um lugar para estudar, conversar perto da lareira e descansar depois das aulas. Só os alunos da casa sabem como entrar.</p>
+
+            <!-- Atalhos: cada link aponta para o id de uma seção desta mesma página.
+                 href="#grifinoria" rola a página até o elemento com id="grifinoria". -->
+            <nav class="atalhos">
+                <a href="#grifinoria" class="atalho casa-grifinoria">Grifinória</a>
+                <a href="#sonserina" class="atalho casa-sonserina">Sonserina</a>
+                <a href="#corvinal" class="atalho casa-corvinal">Corvinal</a>
+                <a href="#lufa-lufa" class="atalho casa-lufa-lufa">Lufa-Lufa</a>
+            </nav>
+        </section>
+
+        <!-- ==================== LISTA DE SALÕES ====================
+             A div "saloes" usa flexbox em coluna para empilhar os salões com espaço entre eles. -->
+        <div class="saloes">
+
+            <!-- ===== GRIFINÓRIA =====
+                 "salao" = formato (imagem + texto) | "casa-grifinoria" = cor da borda e do título -->
+            <section id="grifinoria" class="salao casa-grifinoria">
+                <img src="../img/salao-grifinoria.jpg" alt="Salão comunal da Grifinória" class="salao-imagem">
+
+                <div class="salao-texto">
+                    <h2>Grifinória</h2>
+                    <!-- Localização resumida, em letras pequenas e maiúsculas -->
+                    <p class="salao-local">Torre da Grifinória · 7º andar</p>
+                    <p>Um salão redondo e acolhedor, cheio de poltronas macias onde os alunos se reúnem em volta da lareira nas noites frias.</p>
+
+                    <!-- Lista com as informações do salão -->
+                    <ul class="salao-info">
+                        <li><strong>Localização:</strong> no alto de uma das torres do castelo, no sétimo andar.</li>
+                        <li><strong>Como entrar:</strong> pelo retrato da Mulher Gorda, que só abre com a senha certa.</li>
+                        <li><strong>Decoração:</strong> tapeçarias vermelhas e douradas, mesas de estudo e uma grande lareira sempre acesa.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ===== SONSERINA =====
+                 "salao-invertido" coloca a imagem do lado direito no computador
+                 (flex-direction: row-reverse no CSS), para os salões alternarem de lado. -->
+            <section id="sonserina" class="salao salao-invertido casa-sonserina">
+                <img src="../img/salao-sonserina.jpg" alt="Salão comunal da Sonserina" class="salao-imagem">
+
+                <div class="salao-texto">
+                    <h2>Sonserina</h2>
+                    <p class="salao-local">Masmorras · abaixo do Lago Negro</p>
+                    <p>Um salão comprido e elegante, com uma luz esverdeada que vem das águas do lago pelas janelas.</p>
+                    <ul class="salao-info">
+                        <li><strong>Localização:</strong> nas masmorras, com parte do salão embaixo do Lago Negro.</li>
+                        <li><strong>Como entrar:</strong> por uma parede de pedra lisa que se abre quando alguém diz a senha.</li>
+                        <li><strong>Decoração:</strong> paredes de pedra, lamparinas verdes penduradas em correntes e poltronas de couro escuro.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ===== CORVINAL ===== -->
+            <section id="corvinal" class="salao casa-corvinal">
+                <img src="../img/salao-corvinal.jpg" alt="Salão comunal da Corvinal" class="salao-imagem">
+
+                <div class="salao-texto">
+                    <h2>Corvinal</h2>
+                    <p class="salao-local">Torre da Corvinal · lado oeste do castelo</p>
+                    <p>Um salão circular e arejado, com uma das vistas mais bonitas de Hogwarts: as montanhas e o lago lá embaixo.</p>
+                    <ul class="salao-info">
+                        <li><strong>Localização:</strong> no alto da torre oeste do castelo.</li>
+                        <li><strong>Como entrar:</strong> uma aldrava de bronze em forma de águia faz um enigma, e só entra quem responder.</li>
+                        <li><strong>Decoração:</strong> janelas em arco, cortinas azuis e bronze, teto pintado com estrelas e uma estátua de Rowena Ravenclaw.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ===== LUFA-LUFA ===== -->
+            <section id="lufa-lufa" class="salao salao-invertido casa-lufa-lufa">
+                <img src="../img/salao-lufa-lufa.jpg" alt="Salão comunal da Lufa-Lufa" class="salao-imagem">
+
+                <div class="salao-texto">
+                    <h2>Lufa-Lufa</h2>
+                    <p class="salao-local">Porão · perto das cozinhas</p>
+                    <p>Um salão redondo, de teto baixo e muito aconchegante, que sempre parece ensolarado.</p>
+                    <ul class="salao-info">
+                        <li><strong>Localização:</strong> no porão do castelo, no mesmo corredor das cozinhas.</li>
+                        <li><strong>Como entrar:</strong> batendo no ritmo certo em um dos barris empilhados. Quem erra leva um banho de vinagre!</li>
+                        <li><strong>Decoração:</strong> janelas redondas na altura da grama, muitas plantas, móveis de madeira clara e detalhes em amarelo e preto.</li>
+                    </ul>
+                </div>
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- ==================== RODAPÉ ==================== -->
+    <footer class="rodape">
+        <p>Portal de Hogwarts — Projeto de DWS | UNASP-HT 2026</p>
+        <p>Harry Potter e os nomes relacionados são marcas da Warner Bros. Site de fã, sem fins lucrativos.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<!--
+    ============================================================
+    chapeu-seletor.html | TESTE DO CHAPÉU SELETOR
+    ============================================================
+    Como a página funciona:
+    1. O usuário responde 7 perguntas (formulário com radios).
+    2. Ao clicar em "Colocar o chapéu", o js/chapeu-seletor.js
+       conta os pontos de cada casa e escolhe uma (com sorteio
+       em caso de empate).
+    3. O questionário some, aparece uma mensagem de suspense e
+       depois só o cartão da casa escolhida, com brasão, fundador,
+       elemento e características.
+
+    Os elementos com a classe "escondido" começam invisíveis e o
+    JavaScript mostra ou esconde cada um na hora certa.
+    ============================================================
+-->
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Hogwarts | Chapéu Seletor</title>
+
+    <!-- Fontes do Google (Cinzel nos títulos e Crimson Text nos textos) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Crimson+Text:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- CSS: a página está dentro de pages/, então usamos ../ para voltar à raiz -->
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- JavaScript:
+         script.js         = menu do celular
+         chapeu-seletor.js = conta os pontos e mostra a casa
+         defer = espera o HTML carregar antes de rodar -->
+    <script src="../js/script.js" defer></script>
+    <script src="../js/chapeu-seletor.js" defer></script>
+</head>
+<body>
+
+    <!-- ==================== CABEÇALHO ==================== -->
+    <header class="cabecalho">
+        <div class="container cabecalho-conteudo">
+            <!-- ../index.html = sobe um nível (sai de pages/) e abre a página inicial -->
+            <a href="../index.html" class="logo">
+                <img src="../img/brasao-hogwarts.svg" alt="Brasão de Hogwarts">
+                Hogwarts
+            </a>
+
+            <!-- Botão que abre e fecha o menu no celular (js/script.js) -->
+            <button type="button" id="btn-menu" class="botao-menu">☰ Menu</button>
+
+            <nav class="navegacao">
+                <ul id="menu" class="menu">
+                    <li><a href="../index.html">Início</a></li>
+                    <!-- As outras páginas estão na mesma pasta (pages/), então vai só o nome do arquivo -->
+                    <li><a href="cadastro.php">Cadastro</a></li>
+                    <li><a href="chapeu-seletor.html" class="ativo">Chapéu Seletor</a></li>
+                    <li><a href="saloes.html">Salões Comunais</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- ==================== INTRODUÇÃO ====================
+             No celular a imagem fica em cima do texto; no computador, ao lado (flexbox no CSS). -->
+        <section class="secao intro-chapeu">
+            <img src="../img/chapeu-seletor.svg" alt="O Chapéu Seletor" class="imagem-chapeu">
+            <div>
+                <p class="subtitulo">Cerimônia de Seleção</p>
+                <h1 class="titulo-pagina">O Chapéu Seletor</h1>
+                <p class="descricao-pagina">Responda às perguntas com sinceridade. O Chapéu vai analisar suas respostas e escolher a casa que mais combina com você.</p>
+            </div>
+        </section>
+
+        <!-- ==================== QUESTIONÁRIO ====================
+             id="questionario" é usado pelo JavaScript para "escutar" o envio.
+             Cada resposta tem como value o nome de uma casa:
+             grifinoria, sonserina, corvinal ou lufa-lufa.
+             A ordem das casas muda em cada pergunta, para não ficar óbvio. -->
+        <form id="questionario" class="questionario" action="#" method="post">
+
+            <!-- PERGUNTA 1
+                 Todos os radios da mesma pergunta têm o mesmo name ("pergunta1"),
+                 por isso só dá para marcar uma resposta por pergunta.
+                 O "required" em um dos radios torna a pergunta inteira obrigatória. -->
+            <div class="pergunta">
+                <h3>1. Qual qualidade você mais admira em uma pessoa?</h3>
+                <div class="opcoes">
+                    <!-- O input fica DENTRO do label: clicar no texto também marca a opção -->
+                    <label class="opcao"><input type="radio" name="pergunta1" value="lufa-lufa" required> Lealdade com os amigos</label>
+                    <label class="opcao"><input type="radio" name="pergunta1" value="grifinoria"> Coragem para enfrentar o perigo</label>
+                    <label class="opcao"><input type="radio" name="pergunta1" value="corvinal"> Inteligência e curiosidade</label>
+                    <label class="opcao"><input type="radio" name="pergunta1" value="sonserina"> Ambição para chegar longe</label>
+                </div>
+            </div>
+
+            <!-- PERGUNTA 2 -->
+            <div class="pergunta">
+                <h3>2. Você encontra uma porta trancada no corredor proibido. O que faz?</h3>
+                <div class="opcoes">
+                    <label class="opcao"><input type="radio" name="pergunta2" value="grifinoria" required> Abro na hora para ver o que tem lá dentro</label>
+                    <label class="opcao"><input type="radio" name="pergunta2" value="corvinal"> Pesquiso qual feitiço serve para destrancar</label>
+                    <label class="opcao"><input type="radio" name="pergunta2" value="sonserina"> Guardo esse segredo, pode ser útil no futuro</label>
+                    <label class="opcao"><input type="radio" name="pergunta2" value="lufa-lufa"> Chamo meus amigos para decidirmos juntos</label>
+                </div>
+            </div>
+
+            <!-- PERGUNTA 3 -->
+            <div class="pergunta">
+                <h3>3. Qual matéria de Hogwarts você mais gostaria de estudar?</h3>
+                <div class="opcoes">
+                    <label class="opcao"><input type="radio" name="pergunta3" value="sonserina" required> Poções</label>
+                    <label class="opcao"><input type="radio" name="pergunta3" value="lufa-lufa"> Herbologia</label>
+                    <label class="opcao"><input type="radio" name="pergunta3" value="grifinoria"> Defesa Contra as Artes das Trevas</label>
+                    <label class="opcao"><input type="radio" name="pergunta3" value="corvinal"> Feitiços</label>
+                </div>
+            </div>
+
+            <!-- PERGUNTA 4: cada elemento combina com o elemento da casa -->
+            <div class="pergunta">
+                <h3>4. Qual elemento mais combina com você?</h3>
+                <div class="opcoes">
+                    <label class="opcao"><input type="radio" name="pergunta4" value="corvinal" required> Ar</label>
+                    <label class="opcao"><input type="radio" name="pergunta4" value="grifinoria"> Fogo</label>
+                    <label class="opcao"><input type="radio" name="pergunta4" value="lufa-lufa"> Terra</label>
+                    <label class="opcao"><input type="radio" name="pergunta4" value="sonserina"> Água</label>
+                </div>
+            </div>
+
+            <!-- PERGUNTA 5 -->
+            <div class="pergunta">
+                <h3>5. Qual lugar do castelo você visitaria primeiro?</h3>
+                <div class="opcoes">
+                    <label class="opcao"><input type="radio" name="pergunta5" value="lufa-lufa" required> A cozinha, para conhecer os elfos</label>
+                    <label class="opcao"><input type="radio" name="pergunta5" value="corvinal"> A biblioteca</label>
+                    <label class="opcao"><input type="radio" name="pergunta5" value="grifinoria"> O campo de quadribol</label>
+                    <label class="opcao"><input type="radio" name="pergunta5" value="sonserina"> As masmorras</label>
+                </div>
+            </div>
+
+            <!-- PERGUNTA 6 -->
+            <div class="pergunta">
+                <h3>6. Como seus amigos descreveriam você?</h3>
+                <div class="opcoes">
+                    <label class="opcao"><input type="radio" name="pergunta6" value="sonserina" required> Esperto(a) e determinado(a)</label>
+                    <label class="opcao"><input type="radio" name="pergunta6" value="corvinal"> Criativo(a) e sábio(a)</label>
+                    <label class="opcao"><input type="radio" name="pergunta6" value="grifinoria"> Corajoso(a) e impulsivo(a)</label>
+                    <label class="opcao"><input type="radio" name="pergunta6" value="lufa-lufa"> Gentil e paciente</label>
+                </div>
+            </div>
+
+            <!-- PERGUNTA 7 -->
+            <div class="pergunta">
+                <h3>7. Se você encontrasse a Pedra Filosofal, o que faria?</h3>
+                <div class="opcoes">
+                    <label class="opcao"><input type="radio" name="pergunta7" value="corvinal" required> Estudaria como ela funciona</label>
+                    <label class="opcao"><input type="radio" name="pergunta7" value="sonserina"> Usaria para conquistar grandes coisas</label>
+                    <label class="opcao"><input type="radio" name="pergunta7" value="grifinoria"> Protegeria a pedra para ninguém usá-la para o mal</label>
+                    <label class="opcao"><input type="radio" name="pergunta7" value="lufa-lufa"> Dividiria os benefícios com quem precisa</label>
+                </div>
+            </div>
+
+            <!-- Botão que envia o questionário (dispara o evento "submit" no JavaScript) -->
+            <div class="centralizado">
+                <button type="submit" class="botao">Colocar o chapéu</button>
+            </div>
+
+        </form>
+
+        <!-- ==================== MENSAGEM DE SUSPENSE ====================
+             Começa escondida. Aparece por 2 segundos antes do resultado. -->
+        <p id="pensando" class="pensando escondido">Hmm... deixe-me ver o que tem nessa cabeça...</p>
+
+        <!-- ==================== RESULTADO ====================
+             A seção inteira começa escondida. O JavaScript mostra a seção
+             e deixa visível só o cartão (article) da casa escolhida.
+             Cada cartão tem um id "resultado-" + nome da casa. -->
+        <section id="resultado" class="secao escondido">
+            <p class="subtitulo">Resultado</p>
+            <h2 class="titulo-secao">O Chapéu decidiu...</h2>
+
+            <div class="resultado-casas">
+
+                <!-- ===== GRIFINÓRIA =====
+                     "casa-card" = formato do cartão | "casa-grifinoria" = cores da casa -->
+                <article id="resultado-grifinoria" class="casa-card casa-grifinoria">
+                    <img src="../img/brasao-grifinoria.png" alt="Brasão da Grifinória" class="brasao">
+                    <div class="casa-card-texto">
+                        <h3>Grifinória</h3>
+                        <p>A casa de quem não foge de um desafio e defende o que é certo.</p>
+
+                        <!-- ul = lista sem numeração | li = item | strong = texto em negrito -->
+                        <ul class="casa-info">
+                            <li><strong>Fundador:</strong> Godrico Gryffindor</li>
+                            <li><strong>Elemento:</strong> Fogo</li>
+                            <li><strong>Cores:</strong> Vermelho e dourado</li>
+                            <li><strong>Animal:</strong> Leão</li>
+                        </ul>
+
+                        <p class="caracteristicas-titulo">Características</p>
+                        <!-- Cada característica vira uma "etiqueta" arredondada pelo CSS -->
+                        <ul class="caracteristicas">
+                            <li>Coragem</li>
+                            <li>Ousadia</li>
+                            <li>Determinação</li>
+                            <li>Cavalheirismo</li>
+                        </ul>
+
+                        <!-- Leva para o cadastro com a casa já escolhida no formulário.
+                             O ?casa=Grifinória é lido pelo PHP com $_GET["casa"]. -->
+                        <a href="cadastro.php?casa=Grifinória" class="botao botao-casa">Matricular-me na Grifinória</a>
+                    </div>
+                </article>
+
+                <!-- ===== SONSERINA ===== -->
+                <article id="resultado-sonserina" class="casa-card casa-sonserina">
+                    <img src="../img/brasao-sonserina.svg" alt="Brasão da Sonserina" class="brasao">
+                    <div class="casa-card-texto">
+                        <h3>Sonserina</h3>
+                        <p>A casa de quem tem grandes objetivos e faz de tudo para alcançá-los.</p>
+                        <ul class="casa-info">
+                            <li><strong>Fundador:</strong> Salazar Slytherin</li>
+                            <li><strong>Elemento:</strong> Água</li>
+                            <li><strong>Cores:</strong> Verde e prata</li>
+                            <li><strong>Animal:</strong> Serpente</li>
+                        </ul>
+                        <p class="caracteristicas-titulo">Características</p>
+                        <ul class="caracteristicas">
+                            <li>Ambição</li>
+                            <li>Astúcia</li>
+                            <li>Liderança</li>
+                            <li>Engenhosidade</li>
+                        </ul>
+                        <a href="cadastro.php?casa=Sonserina" class="botao botao-casa">Matricular-me na Sonserina</a>
+                    </div>
+                </article>
+
+                <!-- ===== CORVINAL ===== -->
+                <article id="resultado-corvinal" class="casa-card casa-corvinal">
+                    <img src="../img/brasao-corvinal.png" alt="Brasão da Corvinal" class="brasao">
+                    <div class="casa-card-texto">
+                        <h3>Corvinal</h3>
+                        <p>A casa de quem ama aprender e enxerga o mundo de um jeito diferente.</p>
+                        <ul class="casa-info">
+                            <li><strong>Fundadora:</strong> Rowena Ravenclaw</li>
+                            <li><strong>Elemento:</strong> Ar</li>
+                            <li><strong>Cores:</strong> Azul e bronze</li>
+                            <li><strong>Animal:</strong> Águia</li>
+                        </ul>
+                        <p class="caracteristicas-titulo">Características</p>
+                        <ul class="caracteristicas">
+                            <li>Inteligência</li>
+                            <li>Sabedoria</li>
+                            <li>Criatividade</li>
+                            <li>Originalidade</li>
+                        </ul>
+                        <a href="cadastro.php?casa=Corvinal" class="botao botao-casa">Matricular-me na Corvinal</a>
+                    </div>
+                </article>
+
+                <!-- ===== LUFA-LUFA ===== -->
+                <article id="resultado-lufa-lufa" class="casa-card casa-lufa-lufa">
+                    <img src="../img/brasao-lufa-lufa.png" alt="Brasão da Lufa-Lufa" class="brasao">
+                    <div class="casa-card-texto">
+                        <h3>Lufa-Lufa</h3>
+                        <p>A casa de quem é leal, trabalha duro e trata todos com justiça.</p>
+                        <ul class="casa-info">
+                            <li><strong>Fundadora:</strong> Helga Hufflepuff</li>
+                            <li><strong>Elemento:</strong> Terra</li>
+                            <li><strong>Cores:</strong> Amarelo e preto</li>
+                            <li><strong>Animal:</strong> Texugo</li>
+                        </ul>
+                        <p class="caracteristicas-titulo">Características</p>
+                        <ul class="caracteristicas">
+                            <li>Lealdade</li>
+                            <li>Paciência</li>
+                            <li>Dedicação</li>
+                            <li>Justiça</li>
+                        </ul>
+                        <a href="cadastro.php?casa=Lufa-Lufa" class="botao botao-casa">Matricular-me na Lufa-Lufa</a>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Botão para refazer o teste. type="button" porque não envia formulário:
+                 quem cuida do clique é o JavaScript. -->
+            <div class="centralizado">
+                <button type="button" id="btn-refazer" class="botao botao-refazer">Fazer o teste de novo</button>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ==================== RODAPÉ ==================== -->
+    <footer class="rodape">
+        <p>Portal de Hogwarts — Projeto de DWS | UNASP-HT 2026</p>
+        <p>Harry Potter e os nomes relacionados são marcas da Warner Bros. Site de fã, sem fins lucrativos.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400" role="img" aria-label="Carta de admissao de Hogwarts">
+    <!-- Carta de matricula com selo de cera, usada no card "Registro de Bruxos". -->
+    <rect width="800" height="400" fill="#17120e"/>
+
+    <!-- envelope -->
+    <rect x="270" y="120" width="260" height="175" rx="6" fill="#241b14" stroke="#c9a45c" stroke-width="3"/>
+    <!-- aba de cima -->
+    <path d="M270 126 L400 218 L530 126" fill="none" stroke="#c9a45c" stroke-width="3" stroke-linejoin="round"/>
+    <!-- dobras de baixo -->
+    <path d="M270 289 L362 214 M530 289 L438 214" stroke="#c9a45c" stroke-width="2" opacity="0.5"/>
+
+    <!-- selo de cera -->
+    <circle cx="400" cy="232" r="30" fill="#c9a45c"/>
+    <circle cx="400" cy="232" r="23" fill="none" stroke="#17120e" stroke-width="2" opacity="0.6"/>
+    <text x="400" y="243" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+          font-size="28" font-weight="bold" fill="#17120e">H</text>
+
+    <!-- linhas decorativas dos lados -->
+    <path d="M150 208 H240 M560 208 H650" stroke="#c9a45c" stroke-width="2" opacity="0.35"/>
+</svg>

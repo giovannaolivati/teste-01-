@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400" role="img" aria-label="Chapeu Seletor">
+    <!-- Mesmo desenho do Chapeu Seletor, em formato largo para o card da pagina inicial. -->
+    <rect width="800" height="400" fill="#17120e"/>
+
+    <!-- o grupo desloca e reduz o desenho do chapeu para o centro do card -->
+    <g transform="translate(310, 25) scale(0.95)">
+        <path d="M40 164 C 46 124, 58 96, 74 68 C 84 50, 94 32, 116 22
+                 C 129 16, 141 21, 137 34 C 132 49, 120 61, 118 80
+                 C 116 103, 132 134, 152 162 Z"
+              fill="#7b5a34"/>
+        <path d="M118 80 C 116 103, 132 134, 152 162 L 112 166 C 104 128, 106 100, 118 80 Z"
+              fill="#5f4527"/>
+        <ellipse cx="96" cy="170" rx="84" ry="18" fill="#8a6639"/>
+        <ellipse cx="96" cy="166" rx="84" ry="15" fill="#6b4d2b"/>
+        <path d="M58 146 C 80 138, 106 140, 130 150" stroke="#553d21" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M68 118 C 86 112, 102 114, 116 120" stroke="#553d21" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M66 92 C 72 87, 81 87, 86 92" stroke="#3f2d18" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M94 88 C 99 84, 106 84, 110 88" stroke="#3f2d18" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M62 124 C 78 136, 98 136, 114 124" stroke="#3f2d18" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- linhas decorativas dos lados -->
+    <path d="M120 200 H250 M550 200 H680" stroke="#c9a45c" stroke-width="2" opacity="0.35"/>
+</svg>

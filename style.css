@@ -1,0 +1,1128 @@
+/* ============================================================
+   style.css | FOLHA DE ESTILO DO PORTAL DE HOGWARTS
+   ============================================================
+   Um único arquivo CSS é usado por TODAS as páginas do site.
+
+   Organização do arquivo:
+   1.  Variáveis
+   2.  Estilos gerais
+   3.  Cabeçalho e menu
+   4.  Botões
+   5.  Avisos (mensagens)
+   6.  Página inicial (banner, cards e casas)
+   7.  Cadastro (formulário e tabela)
+   8.  Chapéu Seletor (perguntas e resultado)
+   9.  Salões Comunais
+   10. Cores das casas
+   11. Rodapé
+   12. Media queries (tablet e computador)
+   13. Classe .escondido (usada pelo JavaScript)
+
+   Abordagem MOBILE FIRST: primeiro escrevemos o CSS para o
+   celular. No final (seção 12), as media queries com min-width
+   ajustam o layout para telas maiores.
+
+   Lembrete de sintaxe:
+   seletor {
+       propriedade: valor;
+   }
+   ============================================================ */
+
+
+/* ============================================================
+   1. VARIÁVEIS
+   ============================================================
+   :root representa a página inteira. As variáveis criadas aqui
+   (começam com --) podem ser usadas em qualquer regra com var().
+   Assim, para mudar uma cor do site todo, basta mudar aqui. */
+:root {
+    /* Cores gerais: fundo escuro e dourado, como um castelo à luz de velas */
+    --cor-fundo: #120e0b;          /* marrom quase preto, fundo das páginas */
+    --cor-fundo-claro: #1e1813;    /* um pouco mais claro, fundo dos cards */
+    --cor-borda: #3a2e22;          /* marrom para linhas e bordas discretas */
+    --cor-dourado: #c9a45c;        /* dourado principal (links, botões, detalhes) */
+    --cor-dourado-claro: #e6cd8f;  /* dourado claro para os títulos */
+    --cor-texto: #eae0cc;          /* bege claro para textos no fundo escuro */
+    --cor-texto-suave: #b9ab92;    /* bege apagado para textos secundários */
+
+    /* Cores dos painéis escuros (formulários e perguntas do teste) */
+    --cor-painel: #191310;         /* fundo dos painéis */
+    --cor-painel-borda: #4a3925;   /* borda dos painéis, marrom dourado */
+    --cor-campo: #241c15;          /* fundo das caixas de digitação */
+    --cor-campo-borda: #5c4930;    /* borda das caixas de digitação */
+
+    /* Cores das casas.
+       A cor principal é usada nas bordas.
+       A versão "-claro" é usada nos textos, para dar para ler no fundo escuro. */
+    --grifinoria: #a11d1d;
+    --grifinoria-claro: #e5736a;
+    --sonserina: #22693a;
+    --sonserina-claro: #8cc79b;
+    --corvinal: #2b4a94;
+    --corvinal-claro: #9db3ea;
+    --lufa-lufa: #d9a521;
+    --lufa-lufa-claro: #f0c75a;
+
+    /* Cores dos avisos (usadas só na borda e no texto, para ficar discreto) */
+    --cor-sucesso: #7fbb8e;
+    --cor-erro: #d98b82;
+
+    /* Fontes: se a fonte do Google não carregar (sem internet),
+       o navegador usa Georgia e, se não tiver, qualquer fonte serifada */
+    --fonte-titulo: 'Cinzel', Georgia, serif;
+    --fonte-texto: 'Crimson Text', Georgia, serif;
+
+    /* Medidas usadas em vários lugares */
+    --espacamento: 16px;
+    --borda-arredondada: 6px;
+}
+
+
+/* ============================================================
+   2. ESTILOS GERAIS
+   ============================================================ */
+
+/* * = todos os elementos.
+   box-sizing: border-box faz a largura (width) já incluir o padding e a borda.
+   Sem isso, um elemento com width 100% + padding ficaria maior que a tela. */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;                               /* tira a margem branca que o navegador coloca */
+    background-color: var(--cor-fundo);      /* fundo escuro */
+    color: var(--cor-texto);                 /* cor padrão dos textos */
+    font-family: var(--fonte-texto);         /* fonte padrão dos textos */
+    font-size: 18px;                         /* tamanho padrão da letra */
+    line-height: 1.6;                        /* altura da linha (1.6x o tamanho da letra), deixa o texto arejado */
+}
+
+/* Títulos: fonte Cinzel e cor dourada clara */
+h1,
+h2,
+h3 {
+    font-family: var(--fonte-titulo);
+    color: var(--cor-dourado-claro);
+    line-height: 1.2;                        /* títulos com linhas mais juntas */
+}
+
+/* Cor padrão de todos os links */
+a {
+    color: var(--cor-dourado);
+}
+
+/* Nenhuma imagem pode passar da largura do lugar onde está */
+img {
+    max-width: 100%;
+}
+
+/* .container: centraliza o conteúdo e limita a largura em telas grandes */
+.container {
+    width: 100%;                             /* ocupa toda a largura disponível... */
+    max-width: 1140px;                       /* ...mas no máximo 1140px */
+    margin: 0 auto;                          /* 0 em cima/embaixo e "auto" dos lados = centraliza */
+    padding: 0 var(--espacamento);           /* espaço interno nas laterais, para o texto não encostar na borda da tela */
+}
+
+/* .secao: espaço em cima e embaixo de cada bloco da página */
+.secao {
+    padding: 40px 0;
+}
+
+/* Texto pequeno em letras maiúsculas que aparece acima dos títulos */
+.subtitulo {
+    font-family: var(--fonte-titulo);
+    font-size: 13px;
+    letter-spacing: 3px;                     /* espaço entre as letras */
+    text-transform: uppercase;               /* transforma tudo em MAIÚSCULAS */
+    text-align: center;                      /* centraliza o texto */
+    color: var(--cor-dourado);
+    margin: 0;
+}
+
+/* Título das seções (h2) */
+.titulo-secao {
+    font-size: 26px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 8px 0 32px;                      /* 8px em cima, 0 dos lados, 32px embaixo */
+}
+
+/* Título principal de cada página interna (h1) */
+.titulo-pagina {
+    font-size: 32px;
+    text-align: center;
+    margin: 8px 0 16px;
+}
+
+/* Texto de apresentação embaixo do título da página */
+.descricao-pagina {
+    max-width: 700px;                        /* não deixa a linha ficar comprida demais */
+    margin: 0 auto;                          /* centraliza o bloco */
+    text-align: center;
+    color: var(--cor-texto-suave);
+}
+
+/* Classe de apoio para centralizar botões */
+.centralizado {
+    text-align: center;
+}
+
+
+/* ============================================================
+   3. CABEÇALHO E MENU
+   ============================================================ */
+
+/* Faixa preta do topo, com uma linha dourada embaixo */
+.cabecalho {
+    background-color: #000000;
+    border-bottom: 1px solid var(--cor-dourado);
+    padding: 12px 0;
+}
+
+/* Organiza logo, botão e menu com flexbox.
+   No celular: logo e botão na mesma linha e o menu embaixo (flex-wrap quebra a linha). */
+.cabecalho-conteudo {
+    display: flex;                           /* ativa o flexbox */
+    flex-wrap: wrap;                         /* deixa os itens quebrarem para a linha de baixo */
+    justify-content: space-between;          /* eixo principal: logo na esquerda, botão na direita */
+    align-items: center;                     /* eixo transversal: centraliza na vertical */
+    gap: 10px;                               /* espaço entre os itens */
+}
+
+/* Logo: brasão + a palavra HOGWARTS, lado a lado */
+.logo {
+    display: flex;                           /* coloca brasão e texto na mesma linha */
+    align-items: center;                     /* alinha os dois pelo meio */
+    gap: 10px;
+    font-family: var(--fonte-titulo);
+    font-size: 26px;
+    font-weight: 700;                        /* negrito */
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-decoration: none;                   /* tira o sublinhado do link */
+    color: var(--cor-dourado);
+}
+
+/* Brasão ao lado do nome Hogwarts */
+.logo img {
+    width: 32px;
+    height: 37px;
+}
+
+/* Botão "☰ Menu" (só aparece no celular) */
+.botao-menu {
+    font-family: var(--fonte-titulo);
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--cor-dourado);
+    background-color: transparent;           /* sem fundo */
+    border: 1px solid var(--cor-dourado);
+    border-radius: 4px;                      /* cantos arredondados */
+    padding: 6px 12px;
+    cursor: pointer;                         /* mostra a "mãozinha" ao passar o mouse */
+}
+
+/* nav ocupa a linha inteira no celular, então o menu vai para baixo do logo */
+.navegacao {
+    width: 100%;
+}
+
+/* Lista do menu.
+   No celular começa ESCONDIDA (display: none).
+   O JavaScript coloca a classe "aberto" para mostrar. */
+.menu {
+    list-style: none;                        /* tira as bolinhas da lista */
+    margin: 0;
+    padding: 8px 0;
+    display: none;
+    flex-direction: column;                  /* um link embaixo do outro */
+    align-items: center;
+    gap: 4px;
+}
+
+/* Quando o menu tem a classe "aberto" (clicou no botão), ele aparece */
+.menu.aberto {
+    display: flex;
+}
+
+/* Links do menu */
+.menu a {
+    font-family: var(--fonte-titulo);
+    font-size: 14px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--cor-texto);
+    padding: 4px 0;
+    border-bottom: 2px solid transparent;    /* borda invisível, fica dourada no :hover */
+}
+
+/* :hover = quando o mouse está em cima.
+   .ativo = link da página atual.
+   Nos dois casos o link fica dourado e com uma linha embaixo. */
+.menu a:hover,
+.menu a.ativo {
+    color: var(--cor-dourado);
+    border-bottom-color: var(--cor-dourado);
+}
+
+
+/* ============================================================
+   4. BOTÕES
+   ============================================================ */
+
+/* Botão padrão: dourado com letra escura.
+   Serve para <a> e para <button>. */
+.botao {
+    display: inline-block;                   /* permite usar padding em links como se fossem caixas */
+    background-color: var(--cor-dourado);
+    color: var(--cor-fundo);
+    font-family: var(--fonte-titulo);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 10px 24px;                      /* 10px em cima/embaixo e 24px dos lados */
+    border: 2px solid var(--cor-dourado);
+    border-radius: var(--borda-arredondada);
+    cursor: pointer;
+}
+
+/* Com o mouse em cima: fundo some e o texto fica dourado */
+.botao:hover {
+    background-color: transparent;
+    color: var(--cor-dourado);
+}
+
+/* Botão secundário (Limpar / Cancelar): só o contorno, sem fundo */
+.botao-secundario {
+    background-color: transparent;
+    border-color: var(--cor-painel-borda);
+    color: var(--cor-texto-suave);
+}
+
+.botao-secundario:hover {
+    background-color: var(--cor-campo);
+    border-color: var(--cor-dourado);
+    color: var(--cor-dourado);
+}
+
+
+/* ============================================================
+   5. AVISOS (MENSAGENS)
+   ============================================================
+   Usados pelo PHP (cadastro feito, erro ao salvar) e pelo
+   JavaScript (erro de validação no formulário). */
+/* Aviso discreto: painel escuro com uma faixa colorida na esquerda */
+.mensagem {
+    max-width: 720px;
+    margin: 0 auto 24px;                     /* centralizado, com 24px de espaço embaixo */
+    padding: 12px 16px;
+    background-color: var(--cor-painel);
+    border: 1px solid var(--cor-painel-borda);
+    border-left: 4px solid var(--cor-dourado);
+    border-radius: var(--borda-arredondada);
+    text-align: center;
+}
+
+/* Faixa e texto em verde para sucesso */
+.mensagem-sucesso {
+    border-left-color: var(--cor-sucesso);
+    color: var(--cor-sucesso);
+}
+
+/* Faixa e texto em vermelho claro para erro */
+.mensagem-erro {
+    border-left-color: var(--cor-erro);
+    color: var(--cor-erro);
+}
+
+
+/* ============================================================
+   6. PÁGINA INICIAL
+   ============================================================ */
+
+/* ----- Banner com o castelo ----- */
+.banner {
+    background-color: #14100c;                  /* cor que aparece enquanto a imagem carrega */
+    background-image: url('../img/castelo.svg'); /* ../ porque o CSS está dentro da pasta css/ */
+    background-size: cover;                     /* a imagem cobre todo o banner, sem distorcer */
+    background-position: center bottom;         /* mantém o castelo na parte de baixo */
+    padding: 80px var(--espacamento);
+    text-align: center;
+    border-bottom: 1px solid var(--cor-dourado);
+
+    /* Sombra por DENTRO (inset), da cor do fundo do site: escurece as beiradas
+       e faz a imagem "sumir" aos poucos, em vez de terminar com um corte reto. */
+    box-shadow: inset 0 0 130px 50px var(--cor-fundo);
+}
+
+/* Caixa escura por cima da imagem, para o texto ficar legível.
+   rgba(vermelho, verde, azul, transparência): 0.72 = 72% opaco */
+.banner-texto {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    background-color: rgba(10, 8, 6, 0.72);
+    border: 1px solid var(--cor-dourado);
+    border-radius: var(--borda-arredondada);
+}
+
+.banner h1 {
+    font-size: 34px;
+    margin: 8px 0 16px;
+}
+
+.banner p {
+    margin-bottom: 24px;
+}
+
+/* ----- Cards das três áreas do site ----- */
+
+/* Container dos cards: no celular, um embaixo do outro */
+.cards {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;                  /* imagem em cima, texto embaixo */
+    background-color: var(--cor-fundo-claro);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--borda-arredondada);
+    overflow: hidden;                        /* corta a imagem para ela respeitar os cantos arredondados */
+}
+
+/* Borda dourada ao passar o mouse */
+.card:hover {
+    border-color: var(--cor-dourado);
+}
+
+.card img {
+    display: block;                          /* tira um espacinho que aparece embaixo de imagens */
+    width: 100%;
+    height: 200px;                           /* todas as imagens dos cards com a mesma altura */
+    object-fit: cover;                       /* corta a imagem para caber, sem deixar ela esticada */
+    background-color: #2a2119;               /* cor que aparece enquanto não tiver imagem */
+}
+
+.card-texto {
+    padding: 20px;
+}
+
+.card h3 {
+    font-size: 20px;
+    margin: 0 0 8px;
+}
+
+/* ----- Brasões das quatro casas ----- */
+
+/* flex-wrap deixa os brasões quebrarem de linha no celular (2 por linha) */
+.casas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+}
+
+/* Cada caixinha com brasão + nome */
+.casa-mini {
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    background-color: var(--cor-fundo-claro);
+    border: 2px solid var(--cor-dourado);    /* a cor muda para a da casa na seção 10 */
+    border-radius: var(--borda-arredondada);
+    text-decoration: none;
+    font-family: var(--fonte-titulo);
+}
+
+.casa-mini:hover {
+    background-color: #2a2119;
+}
+
+.casa-mini img {
+    width: 80px;
+    height: 96px;
+    object-fit: contain;                     /* mostra o brasão inteiro, sem cortar */
+}
+
+
+/* ============================================================
+   7. CADASTRO (cadastro.php e editar.php)
+   ============================================================ */
+
+/* Formulário em cima e tabela embaixo */
+.cadastro-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding-bottom: 56px;
+}
+
+/* Painel escuro do formulário, com um brilho dourado bem de leve em volta */
+.painel {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px;
+    background-color: var(--cor-painel);
+    border: 1px solid var(--cor-painel-borda);
+    border-radius: var(--borda-arredondada);
+    box-shadow: 0 0 30px rgba(201, 164, 92, 0.12);  /* brilho de vela: sem deslocamento, 30px de espalhamento */
+}
+
+.painel h2 {
+    margin-top: 0;
+}
+
+/* Campos do formulário um embaixo do outro */
+.formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Cada campo: label em cima e input embaixo */
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* fieldset.campo = fieldset que TAMBÉM tem a classe campo (grupo dos animais) */
+fieldset.campo {
+    margin: 0;
+    padding: 12px 16px;
+    border: 1px solid var(--cor-painel-borda);
+    border-radius: var(--borda-arredondada);
+}
+
+/* Rótulos em negrito e em dourado claro */
+.campo label,
+.campo legend {
+    font-weight: 700;
+    color: var(--cor-dourado-claro);
+}
+
+/* Caixas de digitação e lista de opções */
+.campo input,
+.campo select {
+    font-family: var(--fonte-texto);         /* input não herda a fonte sozinho, então definimos */
+    font-size: 17px;
+    padding: 8px 10px;
+    color: var(--cor-texto);
+    background-color: var(--cor-campo);
+    border: 1px solid var(--cor-campo-borda);
+    border-radius: 4px;
+}
+
+/* :focus = quando o campo está selecionado (cursor dentro dele) */
+.campo input:focus,
+.campo select:focus {
+    outline: 2px solid var(--cor-dourado);
+}
+
+/* Botões do formulário lado a lado (quebram de linha se não couberem) */
+.botoes-formulario {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+/* ----- Tabela com a lista de bruxos ----- */
+.secao-tabela h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+/* Deixa a tabela rolar para o lado no celular, sem quebrar a página inteira */
+.tabela-rolagem {
+    overflow-x: auto;
+}
+
+.tabela {
+    width: 100%;
+    border-collapse: collapse;               /* junta as bordas das células em uma linha só */
+    background-color: var(--cor-fundo-claro);
+    font-size: 16px;
+}
+
+/* Células de título (cabeçalho da tabela) */
+.tabela th {
+    font-family: var(--fonte-titulo);
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: left;
+    padding: 12px 10px;
+    background-color: var(--cor-campo);
+    color: var(--cor-dourado-claro);
+    border-bottom: 2px solid var(--cor-dourado);
+}
+
+/* Células comuns */
+.tabela td {
+    padding: 10px;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+/* Destaca a linha em que o mouse está */
+.tabela tbody tr:hover {
+    background-color: #2a2119;
+}
+
+/* Linha "Nenhum bruxo matriculado ainda" */
+.tabela-vazia {
+    text-align: center;
+    color: var(--cor-texto-suave);
+}
+
+/* Texto "Não selecionado" na coluna Casa */
+.sem-casa {
+    color: var(--cor-texto-suave);
+    font-style: italic;
+}
+
+/* Coluna Ações: não deixa os botões Editar e Excluir quebrarem de linha */
+.acoes {
+    white-space: nowrap;
+}
+
+/* O formulário de excluir fica na mesma linha do link Editar */
+.form-excluir {
+    display: inline;
+}
+
+/* Estilo comum dos botões Editar (link) e Excluir (button) */
+.botao-editar,
+.botao-excluir {
+    display: inline-block;
+    padding: 2px 10px;
+    font-family: var(--fonte-texto);         /* o <button> não herda a fonte sozinho */
+    font-size: 14px;
+    line-height: 1.6;
+    text-decoration: none;
+    background-color: transparent;
+    border: 1px solid;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.botao-editar {
+    color: var(--cor-dourado);
+    border-color: var(--cor-dourado);
+}
+
+.botao-editar:hover {
+    background-color: var(--cor-dourado);
+    color: var(--cor-fundo);
+}
+
+/* O Excluir fica dourado igual ao Editar. Só ao passar o mouse ele avisa,
+   ficando avermelhado, porque é uma ação que não dá para desfazer. */
+.botao-excluir {
+    margin-left: 6px;
+    color: var(--cor-texto-suave);
+    border-color: var(--cor-painel-borda);
+}
+
+.botao-excluir:hover {
+    background-color: var(--cor-erro);
+    border-color: var(--cor-erro);
+    color: var(--cor-fundo);
+}
+
+
+/* ============================================================
+   8. CHAPÉU SELETOR
+   ============================================================ */
+
+/* Imagem do chapéu + texto de introdução (no celular, um embaixo do outro) */
+.intro-chapeu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+}
+
+.imagem-chapeu {
+    width: 160px;
+}
+
+/* Questionário centralizado, com as perguntas empilhadas */
+.questionario {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Cada pergunta fica em um painel escuro, igual ao do formulário */
+.pergunta {
+    padding: 20px;
+    background-color: var(--cor-painel);
+    border: 1px solid var(--cor-painel-borda);
+    border-radius: var(--borda-arredondada);
+    box-shadow: 0 0 20px rgba(201, 164, 92, 0.08);
+}
+
+.pergunta h3 {
+    font-size: 18px;
+    margin: 0 0 12px;
+}
+
+/* Opções de resposta uma embaixo da outra */
+.opcoes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Cada opção: bolinha do radio + texto, alinhados no meio */
+.opcao {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border: 1px solid var(--cor-painel-borda);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.opcao:hover {
+    background-color: var(--cor-campo);
+    border-color: var(--cor-dourado);
+}
+
+/* No cadastro, as opções de animal ficam mais simples: sem borda e sem negrito */
+.campo .opcao {
+    font-weight: 400;
+    border: none;
+    padding: 2px 0;
+}
+
+.campo .opcao:hover {
+    background-color: transparent;
+}
+
+/* Mensagem de suspense "Hmm... deixe-me ver..." */
+.pensando {
+    font-family: var(--fonte-titulo);
+    font-size: 24px;
+    font-style: italic;
+    text-align: center;
+    color: var(--cor-dourado-claro);
+    padding: 80px 0;
+}
+
+/* ----- Cartões do resultado ----- */
+.resultado-casas {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* No celular: brasão em cima e informações embaixo, tudo centralizado */
+.casa-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 24px;
+    text-align: center;
+    background-color: var(--cor-fundo-claro);
+    border: 2px solid var(--cor-dourado);    /* a cor muda para a da casa na seção 10 */
+    border-top-width: 8px;                   /* borda de cima mais grossa, como uma faixa */
+    border-radius: var(--borda-arredondada);
+}
+
+.brasao {
+    width: 140px;
+    height: 160px;
+    object-fit: contain;
+}
+
+.casa-card-texto {
+    width: 100%;
+}
+
+.casa-card h3 {
+    font-size: 28px;
+    margin: 0 0 8px;
+}
+
+/* Lista Fundador / Elemento / Cores / Animal */
+.casa-info {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+    text-align: left;
+}
+
+.casa-info li {
+    padding: 6px 0;
+    border-bottom: 1px solid var(--cor-borda);
+}
+
+.caracteristicas-titulo {
+    font-family: var(--fonte-titulo);
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--cor-texto-suave);
+    margin: 0 0 8px;
+}
+
+/* Características como "etiquetas" lado a lado */
+.caracteristicas {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+.caracteristicas li {
+    padding: 2px 14px;
+    font-size: 15px;
+    border: 1px solid var(--cor-dourado);
+    border-radius: 20px;                     /* bem arredondado, formato de pílula */
+}
+
+/* Botão "Matricular-me" dentro do cartão */
+.botao-casa {
+    margin-top: 20px;
+}
+
+/* Botão "Fazer o teste de novo" */
+.botao-refazer {
+    margin-top: 32px;
+}
+
+
+/* ============================================================
+   9. SALÕES COMUNAIS
+   ============================================================ */
+
+/* Imagem de fundo temática só desta página (a classe está no body do saloes.html).
+   Para trocar por uma foto do castelo, salve a foto em img/ e mude o nome aqui. */
+.pagina-saloes {
+    background-image: url('../img/castelo.svg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;            /* a imagem fica parada enquanto a página rola */
+}
+
+/* Atalhos para cada casa */
+.atalhos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 24px;
+}
+
+.atalho {
+    padding: 6px 16px;
+    font-family: var(--fonte-titulo);
+    font-size: 14px;
+    text-decoration: none;
+    color: var(--cor-texto);
+    background-color: rgba(18, 14, 11, 0.85); /* fundo escuro quase opaco, para ler em cima da imagem */
+    border: 2px solid var(--cor-dourado);
+    border-radius: 20px;
+}
+
+.atalho:hover {
+    background-color: #2a2119;
+}
+
+/* Salões empilhados com espaço entre eles */
+.saloes {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding-bottom: 56px;
+}
+
+/* Cada salão: no celular, imagem em cima e texto embaixo */
+.salao {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(18, 14, 11, 0.9);
+    border: 1px solid var(--cor-borda);
+    border-left: 6px solid var(--cor-dourado);  /* faixa grossa na esquerda, fica com a cor da casa */
+    border-radius: var(--borda-arredondada);
+    overflow: hidden;
+}
+
+.salao-imagem {
+    display: block;
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    background-color: #2a2119;
+}
+
+.salao-texto {
+    padding: 24px;
+}
+
+.salao-texto h2 {
+    font-size: 26px;
+    margin: 0 0 4px;
+}
+
+/* Linha com a localização resumida */
+.salao-local {
+    font-family: var(--fonte-titulo);
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--cor-texto-suave);
+    margin: 0 0 12px;
+}
+
+.salao-info {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.salao-info li {
+    padding: 8px 0;
+    border-top: 1px solid var(--cor-borda);
+}
+
+
+/* ============================================================
+   10. CORES DAS CASAS
+   ============================================================
+   Estas classes são usadas JUNTO com outras (casa-mini, casa-card,
+   salao, atalho) para trocar a cor da borda e dos títulos.
+
+   Elas ficam no final do arquivo de propósito: quando duas regras
+   têm a mesma força, vale a que vem por último (efeito "cascata"). */
+
+/* Grifinória: vermelho */
+.casa-grifinoria {
+    border-color: var(--grifinoria);
+}
+
+.casa-grifinoria h2,
+.casa-grifinoria h3,
+.casa-grifinoria span {
+    color: var(--grifinoria-claro);
+}
+
+/* Sonserina: verde */
+.casa-sonserina {
+    border-color: var(--sonserina);
+}
+
+.casa-sonserina h2,
+.casa-sonserina h3,
+.casa-sonserina span {
+    color: var(--sonserina-claro);
+}
+
+/* Corvinal: azul */
+.casa-corvinal {
+    border-color: var(--corvinal);
+}
+
+.casa-corvinal h2,
+.casa-corvinal h3,
+.casa-corvinal span {
+    color: var(--corvinal-claro);
+}
+
+/* Lufa-Lufa: amarelo */
+.casa-lufa-lufa {
+    border-color: var(--lufa-lufa);
+}
+
+.casa-lufa-lufa h2,
+.casa-lufa-lufa h3,
+.casa-lufa-lufa span {
+    color: var(--lufa-lufa-claro);
+}
+
+
+/* ============================================================
+   11. RODAPÉ
+   ============================================================ */
+.rodape {
+    background-color: #000000;
+    border-top: 1px solid var(--cor-dourado);
+    padding: 24px var(--espacamento);
+    text-align: center;
+    font-size: 15px;
+    color: var(--cor-texto-suave);
+}
+
+.rodape p {
+    margin: 4px 0;
+}
+
+
+/* ============================================================
+   12. MEDIA QUERIES
+   ============================================================
+   @media (min-width: 768px) = as regras de dentro só valem quando
+   a tela tem 768px de largura OU MAIS (tablets e computadores).
+   Elas substituem as regras do celular escritas lá em cima. */
+
+/* ---------- A partir de 768px (tablet) ---------- */
+@media (min-width: 768px) {
+
+    /* Cabeçalho: logo e menu na mesma linha */
+    .cabecalho-conteudo {
+        flex-wrap: nowrap;                   /* não quebra mais de linha */
+    }
+
+    /* Em tela grande não precisa do botão "☰ Menu" */
+    .botao-menu {
+        display: none;
+    }
+
+    /* nav volta a ocupar só o espaço dos links */
+    .navegacao {
+        width: auto;
+    }
+
+    /* Menu sempre visível e com os links lado a lado */
+    .menu {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        padding: 0;
+    }
+
+    .banner {
+        padding: 120px var(--espacamento);
+    }
+
+    .banner h1 {
+        font-size: 46px;
+    }
+
+    .titulo-pagina {
+        font-size: 40px;
+    }
+
+    /* Os três cards ficam lado a lado */
+    .cards {
+        flex-direction: row;
+    }
+
+    /* flex: 1 = cada card ocupa a mesma parte do espaço */
+    .card {
+        flex: 1;
+    }
+
+    .casa-mini {
+        width: 160px;
+    }
+
+    /* Chapéu Seletor: imagem ao lado do texto */
+    .intro-chapeu {
+        flex-direction: row;
+        justify-content: center;
+        gap: 32px;
+    }
+
+    .intro-chapeu .subtitulo,
+    .intro-chapeu .titulo-pagina,
+    .intro-chapeu .descricao-pagina {
+        text-align: left;
+    }
+
+    /* Resultado: brasão ao lado das informações */
+    .casa-card {
+        flex-direction: row;
+        gap: 32px;
+        text-align: left;
+    }
+
+    .caracteristicas {
+        justify-content: flex-start;         /* etiquetas alinhadas à esquerda */
+    }
+
+    /* Salões: imagem ao lado do texto */
+    .salao {
+        flex-direction: row;
+    }
+
+    /* row-reverse = linha ao contrário, a imagem vai para a direita */
+    .salao-invertido {
+        flex-direction: row-reverse;
+    }
+
+    .salao-imagem {
+        width: 45%;
+        height: auto;
+        min-height: 340px;                   /* altura mínima para a imagem não ficar achatada */
+    }
+
+    .salao-texto {
+        width: 55%;
+        padding: 32px;
+    }
+}
+
+/* ---------- A partir de 1200px (computador) ---------- */
+@media (min-width: 1200px) {
+
+    /* Mais espaço entre as seções */
+    .secao {
+        padding: 64px 0;
+    }
+
+    /* Banner mais alto e título maior */
+    .banner {
+        padding: 160px var(--espacamento);
+    }
+
+    .banner h1 {
+        font-size: 56px;
+    }
+
+    .cards {
+        gap: 32px;
+    }
+}
+
+
+/* ============================================================
+   13. CLASSE .escondido
+   ============================================================
+   Esconde o elemento. O JavaScript coloca e tira essa classe para
+   mostrar ou esconder coisas (resultado do Chapéu Seletor,
+   questionário, mensagem de suspense e mensagens de erro).
+
+   Por que ela está no FINAL do arquivo?
+   Elementos como .casa-card e .questionario têm display: flex.
+   Quando duas regras têm a mesma força, vale a que vem por último
+   (efeito "cascata" do CSS). Se .escondido ficasse lá em cima,
+   o display: flex de baixo ganharia e o elemento não sumiria. */
+.escondido {
+    display: none;
+}

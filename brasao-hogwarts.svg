@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 74" width="64" height="74" role="img" aria-label="Brasao de Hogwarts">
+    <!-- Escudo simples em dourado, usado ao lado do nome Hogwarts no menu.
+         Pode ser trocado por uma imagem do brasao oficial com o mesmo nome de arquivo. -->
+    <path d="M5 5 H59 V38 C59 55 46 66 32 71 C18 66 5 55 5 38 Z"
+          fill="#1a140f" stroke="#c9a45c" stroke-width="3" stroke-linejoin="round"/>
+    <path d="M32 6 V70" stroke="#c9a45c" stroke-width="1.5" opacity="0.45"/>
+    <path d="M6 32 H58" stroke="#c9a45c" stroke-width="1.5" opacity="0.45"/>
+    <text x="32" y="48" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif"
+          font-size="34" font-weight="bold" fill="#e6cd8f">H</text>
+</svg>
